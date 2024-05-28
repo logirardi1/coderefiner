@@ -1,16 +1,19 @@
 def soma ( a,b): return a+ b
 
-def subtracao(a, b):
-      return a  -b
-def multiplicacao(a,b):return a*b
+  def subtracao(a, 
+  b): 
+  return a  -b
+ def multiplicacao(a,b):return a*b
 
 def divisao(a,
 b):
+
  return a
 / b
 def calculadora(operacao,a,b):
- if operacao=='soma':return soma(a,b)
- elif operacao== 'subtracao': return subtracao(a,b)
+    if operacao=='soma':return soma(a,b
+    )
+        elif operacao== 'subtracao': return subtracao(a,b)
  elif operacao=='multiplicacao':
     return multiplicacao(a,
 b)
