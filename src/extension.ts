@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Congratulations, your extension "my-extension" is now active!');
+    console.log('CodeRefine is now working!');
 
     let disposable = vscode.commands.registerCommand('extension.formatCode', () => {
         const editor = vscode.window.activeTextEditor;
