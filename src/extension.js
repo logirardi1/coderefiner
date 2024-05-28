@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 const vscode = __importStar(require("vscode"));
 function activate(context) {
-    console.log('Congratulations, your extension "my-extension" is now active!');
+    console.log('CodeRefine is now working!');
     let disposable = vscode.commands.registerCommand('extension.formatCode', () => {
         const editor = vscode.window.activeTextEditor;
         if (editor) {
