@@ -6,7 +6,7 @@
         {
             "label": "npm: watch",   //npm node  package !NAO MUDAR!
             "type": "npm",
-            "script": "watch", //debugging watchmode
+            "script": "watch", //debugging watchmode (liveserver pra exensão)
             "isBackground": true,
             "problemMatcher": [
                 {
