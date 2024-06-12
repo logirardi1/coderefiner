@@ -1,0 +1,3 @@
+function soma(a,b){return a+ b} function subtracao(a,b){return a-b;} function multiplicacao(a,b)
+{return a*b;} function divisao(a,b){return a/b;} function calculadora(operacao,a,b){if(operacao=='soma'){return soma(a,b);}
+else if(operacao=='subtracao'){return subtracao(a,b);} else if(operacao=='multiplicacao'){return multiplicacao(a,b);}else if(operacao=='divisao'){return divisao(a,b);}else{return 'Operacao invalida';}} console.log(calculadora('soma',1,2));console.log(calculadora('subtracao',5,3));console.log(calculadora('multiplicacao',2,2));console.log(calculadora('divisao',8,4));console.log(calculadora('modulo',9,3));
