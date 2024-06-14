@@ -1,8 +1,9 @@
 // src/extension.ts
 import * as vscode from 'vscode';
+import * as prettier from 'prettier';
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Congratulations, your extension "coderefiner" is now active!');
+    console.log('Agora, CodeRefine está ativo!');
 
     let disposable = vscode.commands.registerCommand('extension.formatCode', () => {
         const editor = vscode.window.activeTextEditor;
@@ -11,8 +12,9 @@ export function activate(context: vscode.ExtensionContext) {
             const document = editor.document;
             console.log('Document retrieved.');
             const text = document.getText();
-            const formatted = formatCode(text);
-            console.log('Document formatted.');
+            const languageId = document.languageId;
+            const formatted = formatCode(text, languageId);
+            console.log('Documento Formatado.');
             const fullRange = new vscode.Range(
                 document.positionAt(0),
                 document.positionAt(document.getText().length)
@@ -32,35 +34,32 @@ export function activate(context: vscode.ExtensionContext) {
 
 export function deactivate() {}
 
-function formatCode(text: string): string {
-    console.log('Formatting text.');
+function formatCode(text: string, languageId: string): string {
+    console.log('Formatting text with Prettier.');
 
-    // Divide o texto em linhas
-    const lines = text.split('\n');
-    let indentLevel = 0;
+    // Map the VSCode language ID to a Prettier parser
+    const parserMap: { [key: string]: prettier.BuiltInParserName } = {
+        javascript: 'babel',
+        typescript: 'typescript',
+        css: 'css',
+        scss: 'scss',
+        html: 'html',
+        json: 'json',
+        markdown: 'markdown'
+        // Add more mappings as needed
+    };
 
-    const formattedLines = lines.map(line => {
-        // Remove espaços desnecessários no início de cada linha
-        let trimmedLine = line.trimStart();
+    const parser = parserMap[languageId] || 'babel'; // Default to 'babel' if the languageId is not in the map
 
-        // Ajusta o nível de indentação baseado nas chaves '{' e '}'
-        if (trimmedLine.endsWith('}')) {
-            indentLevel = Math.max(0, indentLevel - 1);
-        }
-
-        const indentedLine = '  '.repeat(indentLevel) + trimmedLine;
-
-        if (trimmedLine.endsWith('{')) {
-            indentLevel += 1;
-        }
-
-        // Adiciona ponto e vírgula no final de linhas que precisam (simplesmente adicionando para este exemplo)
-        if (trimmedLine && !trimmedLine.endsWith(';') && !trimmedLine.endsWith('{') && !trimmedLine.endsWith('}') && !trimmedLine.includes('if') && !trimmedLine.includes('else') && !trimmedLine.includes('for') && !trimmedLine.includes('while') && !trimmedLine.includes('function')) {
-            trimmedLine += ';';
-        }
-
-        return indentedLine;
-    });
-
-    return formattedLines.join('\n');
+    try {
+        return prettier.format(text, {
+            parser: parser,
+            singleQuote: true, // Example option, customize as needed
+            trailingComma: 'es5',
+            tabWidth: 2
+        });
+    } catch (error) {
+        console.error('Error formatting with Prettier:', error);
+        return text; // Return the original text if formatting fails
+    }
 }
