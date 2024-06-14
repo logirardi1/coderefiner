@@ -1,0 +1,14 @@
+Agora, CodeRefine está ativo!
+
+Editor ativo encontrado!
+
+Documento Recuperado.
+
+Documento Formatado.
+
+____
+
+Documento recolocado.
+
+Nenhum editor ativo encontrado.
+

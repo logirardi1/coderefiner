@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 // src/extension.ts
 const vscode = require("vscode");
+const prettier = require("prettier");
 function activate(context) {
     console.log('Congratulations, your extension "coderefiner" is now active!');
     let disposable = vscode.commands.registerCommand('extension.formatCode', () => {
@@ -12,7 +13,8 @@ function activate(context) {
             const document = editor.document;
             console.log('Document retrieved.');
             const text = document.getText();
-            const formatted = formatCode(text);
+            const languageId = document.languageId;
+            const formatted = formatCode(text, languageId);
             console.log('Document formatted.');
             const fullRange = new vscode.Range(document.positionAt(0), document.positionAt(document.getText().length));
             editor.edit(editBuilder => {
@@ -29,28 +31,31 @@ function activate(context) {
 exports.activate = activate;
 function deactivate() { }
 exports.deactivate = deactivate;
-function formatCode(text) {
-    console.log('Formatting text.');
-    // Divide o texto em linhas
-    const lines = text.split('\n');
-    let indentLevel = 0;
-    const formattedLines = lines.map(line => {
-        // Remove espaços desnecessários no início de cada linha
-        let trimmedLine = line.trimStart();
-        // Ajusta o nível de indentação baseado nas chaves '{' e '}'
-        if (trimmedLine.endsWith('}')) {
-            indentLevel = Math.max(0, indentLevel - 1);
-        }
-        const indentedLine = '  '.repeat(indentLevel) + trimmedLine;
-        if (trimmedLine.endsWith('{')) {
-            indentLevel += 1;
-        }
-        // Adiciona ponto e vírgula no final de linhas que precisam (simplesmente adicionando para este exemplo)
-        if (trimmedLine && !trimmedLine.endsWith(';') && !trimmedLine.endsWith('{') && !trimmedLine.endsWith('}') && !trimmedLine.includes('if') && !trimmedLine.includes('else') && !trimmedLine.includes('for') && !trimmedLine.includes('while') && !trimmedLine.includes('function')) {
-            trimmedLine += ';';
-        }
-        return indentedLine;
-    });
-    return formattedLines.join('\n');
+function formatCode(text, languageId) {
+    console.log('Formatting text with Prettier.');
+    // Map the VSCode language ID to a Prettier parser
+    const parserMap = {
+        javascript: 'babel',
+        typescript: 'typescript',
+        css: 'css',
+        scss: 'scss',
+        html: 'html',
+        json: 'json',
+        markdown: 'markdown'
+        // Add more mappings as needed
+    };
+    const parser = parserMap[languageId] || 'babel'; // Default to 'babel' if the languageId is not in the map
+    try {
+        return prettier.format(text, {
+            parser: parser,
+            singleQuote: true,
+            trailingComma: 'es5',
+            tabWidth: 2
+        });
+    }
+    catch (error) {
+        console.error('Error formatting with Prettier:', error);
+        return text; // Return the original text if formatting fails
+    }
 }
 //# sourceMappingURL=extension.js.map

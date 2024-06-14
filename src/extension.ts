@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import * as prettier from 'prettier';
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Agora, CodeRefine está ativo!');
+    console.log('Congratulations, your extension "coderefiner" is now active!');
 
     let disposable = vscode.commands.registerCommand('extension.formatCode', () => {
         const editor = vscode.window.activeTextEditor;
@@ -14,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
             const text = document.getText();
             const languageId = document.languageId;
             const formatted = formatCode(text, languageId);
-            console.log('Documento Formatado.');
+            console.log('Document formatted.');
             const fullRange = new vscode.Range(
                 document.positionAt(0),
                 document.positionAt(document.getText().length)
@@ -52,12 +52,15 @@ function formatCode(text: string, languageId: string): string {
     const parser = parserMap[languageId] || 'babel'; // Default to 'babel' if the languageId is not in the map
 
     try {
-        return prettier.format(text, {
+        const options: prettier.Options = {
             parser: parser,
             singleQuote: true, // Example option, customize as needed
             trailingComma: 'es5',
             tabWidth: 2
-        });
+        };
+
+        const formatted = prettier.format(text, options);
+        return formatted;
     } catch (error) {
         console.error('Error formatting with Prettier:', error);
         return text; // Return the original text if formatting fails
