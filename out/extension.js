@@ -46,12 +46,14 @@ function formatCode(text, languageId) {
     };
     const parser = parserMap[languageId] || 'babel'; // Default to 'babel' if the languageId is not in the map
     try {
-        return prettier.format(text, {
+        const options = {
             parser: parser,
             singleQuote: true,
             trailingComma: 'es5',
             tabWidth: 2
-        });
+        };
+        const formatted = prettier.format(text, options);
+        return formatted;
     }
     catch (error) {
         console.error('Error formatting with Prettier:', error);
