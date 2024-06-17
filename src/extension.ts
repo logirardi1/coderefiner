@@ -49,7 +49,7 @@ function formatCode(text: string, languageId: string): string {
         
     };
 
-    const parser = parserMap[languageId] || 'babel'; // 'babel' é para quando um linguagem não estiver atribuida no mapa
+    const parser = parserMap[languageId] || 'babel'; // 'babel' é para quando um linguagem não estiver atribuida no mapa (não ta funcionando)
 
     try {
         const options: prettier.Options = {
