@@ -3,18 +3,18 @@ import * as vscode from 'vscode';
 import * as prettier from 'prettier';
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Congratulations, your extension "coderefiner" is now active!');
+    console.log('Agora, CodeRefine está ativo!');
 
     let disposable = vscode.commands.registerCommand('extension.formatCode', () => {
         const editor = vscode.window.activeTextEditor;
         if (editor) {
-            console.log('Active editor found.');
+            console.log('Editor ativo encontrado!');
             const document = editor.document;
-            console.log('Document retrieved.');
+            console.log('Documento Recuperado.');
             const text = document.getText();
             const languageId = document.languageId;
             const formatted = formatCode(text, languageId);
-            console.log('Document formatted.');
+            console.log('Documento Formatado...');
             const fullRange = new vscode.Range(
                 document.positionAt(0),
                 document.positionAt(document.getText().length)
@@ -22,10 +22,10 @@ export function activate(context: vscode.ExtensionContext) {
 
             editor.edit(editBuilder => {
                 editBuilder.replace(fullRange, formatted);
-                console.log('Document replaced.');
+                console.log('Documento recolocado.');
             });
         } else {
-            console.log('No active editor found.');
+            console.log('Nenhum editor ativo encontrado.');
         }
     });
 
@@ -35,9 +35,9 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {}
 
 function formatCode(text: string, languageId: string): string {
-    console.log('Formatting text with Prettier.');
+    console.log('Code Refine está formatando...');
 
-    // Map the VSCode language ID to a Prettier parser
+    // mapa de bounds entre linguagens e identacoes
     const parserMap: { [key: string]: prettier.BuiltInParserName } = {
         javascript: 'babel',
         typescript: 'typescript',
@@ -46,15 +46,15 @@ function formatCode(text: string, languageId: string): string {
         html: 'html',
         json: 'json',
         markdown: 'markdown'
-        // Add more mappings as needed
+        
     };
 
-    const parser = parserMap[languageId] || 'babel'; // Default to 'babel' if the languageId is not in the map
+    const parser = parserMap[languageId] || 'babel'; // 'babel' é para quando um linguagem não estiver atribuida no mapa
 
     try {
         const options: prettier.Options = {
             parser: parser,
-            singleQuote: true, // Example option, customize as needed
+            singleQuote: true, 
             trailingComma: 'es5',
             tabWidth: 2
         };
@@ -62,7 +62,7 @@ function formatCode(text: string, languageId: string): string {
         const formatted = prettier.format(text, options);
         return formatted;
     } catch (error) {
-        console.error('Error formatting with Prettier:', error);
-        return text; // Return the original text if formatting fails
+        console.error('Code Refine encontrou um erro ao formatar.', error);
+        return text; // voltar texto original caso falhe
     }
 }
