@@ -12,3 +12,15 @@ Documento recolocado.
 
 Nenhum editor ativo encontrado.
 
+____
+
+Code Refine está formatando...
+
+____
+
+// 'babel' é para quando um linguagem não estiver atribuida no mapa (não ta funcionando)
+
+____
+// voltar texto original caso falhe
+
+

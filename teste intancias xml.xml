@@ -1,0 +1,1 @@
+<root><data><item>Item 1</item><item>Item 2</item><item>Item 3</item></data><moredata attr="value"  extraattr= "extra"  ><subitem>SubItem 1</subitem><subitem>SubItem 2</subitem></moredata><random>Some value</random></root>
