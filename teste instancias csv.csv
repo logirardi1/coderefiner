@@ -1,0 +1,14 @@
+import csv
+
+# Gerando o arquivo CSV desalinhado
+with open('teste instancias csv.csv', mode='w', newline='') as file:
+    writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+    # Cabeçalhos desalinhados
+    writer.writerow(['id', 'Nome        ', 'Idade', 'Profissão    ', 'Salário', 'Localização'])
+    writer.writerow(['1', 'Ana', '32', 'Engenheira', '5000 ', '   São Paulo'])
+    
+    writer.writerow(['  2 ', '  João', '45', '  Professor  ', '2000', 'Rio de Janeiro'])
+    writer.writerow(['  3', 'Maria ', '28', '   Médica', '8000    ', 'Belo  Horizonte'])
+    writer.writerow(['4', ' José', '   22', 'Estagiário', '900   ', 'São      Paulo'])
+    writer.writerow(['  5', 'Marcos', '38', '   Desenhista   ', '3500', ' Porto   Alegre  '])

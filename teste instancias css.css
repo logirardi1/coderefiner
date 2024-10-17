@@ -1,0 +1,17 @@
+body{
+    background-color:   red ;font-family:
+      Arial, sans-serif;font-size: 16px;
+      color: white;
+}
+h1 { font-size:40px;margin-left:50px ;
+    color: blue    ; padding:10px   ;   }
+p {font-size  :14px;  margin   :   10px ;
+    text-align:center
+;line-height:   2;letter-spacing  : 3px;}
+div{border:2px solid
+     black;  padding:20px ;
+   background-color   : green;
+width: 50%; height   :200px;overflow:hidden}
+  .classeExtra    {    font-weight: bold   ;
+color:#fff;
+text-shadow:2px 2px 3px #000000;   margin-top:-10px;}
