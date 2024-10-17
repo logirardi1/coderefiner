@@ -99,7 +99,7 @@ function formatWithBlack(text) {
 // Função para formatar Java com google-java-format
 function formatWithGoogleJavaFormat(text) {
     try {
-        const formatted = cp.execSync('javaS -jar /home/gorgopat/Documentos/git lorenzo/coderefiner/google-java-format-1.23.0-all-deps.jar', { input: text }).toString();
+        const formatted = cp.execSync('java -jar /home/gorgopat/Documentos/git lorenzo/coderefiner/google-java-format-1.23.0-all-deps.jar', { input: text }).toString();
         return formatted;
     }
     catch (error) {
