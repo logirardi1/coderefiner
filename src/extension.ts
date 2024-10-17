@@ -39,11 +39,11 @@ async function formatCode(text: string, languageId: string): Promise<string> {
 
     // mapa linguagens para o parser correto (babel foi indexado, não é mais retono de erro)
     const parserMap: { [key: string]: prettier.LiteralUnion<prettier.BuiltInParserName, string> } = {
-        javascript: 'babel',
-        typescript: 'typescript',
-        css: 'css',
+        javascript: 'babel', // certo
+        typescript: 'typescript', // certo
+        css: 'css', // certo
         scss: 'scss',
-        html: 'html',
+        html: 'html', // certo
         json: 'json',
         markdown: 'markdown',
         php: 'php',        // index do @prettier/plugin-php
@@ -91,7 +91,11 @@ function formatWithBlack(text: string): string {
 // Função para formatar Java com google-java-format
 function formatWithGoogleJavaFormat(text: string): string {
     try {
-        const formatted = cp.execSync('java -jar /home/gorgopat/Documentos/git lorenzo/coderefiner/google-java-format-1.23.0-all-deps.jar', { input: text }).toString();
+        const formatted = cp.execSync(
+            'java -jar /home/miguel/Desktop/Projetos/Faculdade/coderefiner/google-java-format-1.23.0-all-deps.jar -',
+            { input: text }
+        ).toString();
+
         return formatted;
     } catch (error) {
         console.error('Houve um erro ao tentar formatar o arquivo JAVA:', error);
