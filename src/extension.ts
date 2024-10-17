@@ -3,17 +3,17 @@ import * as prettier from 'prettier';
 import * as cp from 'child_process'; // Para rodar comandos externos
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Congratulations, your extension "coderefiner" is now active!');
+    console.log('Agora, CodeRefine está ativo!');
 
-    let disposable = vscode.commands.registerCommand('extension.formatCode', () => {
+    let disposable = vscode.commands.registerCommand('extension.formatCode', async () => {
         const editor = vscode.window.activeTextEditor;
         if (editor) {
             const document = editor.document;
             const text = document.getText();
             const languageId = document.languageId;
-            const formatted = formatCode(text, languageId);
+            const formatted = await formatCode(text, languageId);  // chamada assíncrona com await
 
-            if (typeof formatted === 'string') { // Verificação para garantir que retornamos uma string
+            if (typeof formatted === 'string') { // Verificação para garantir que VAI retornar uma string
                 const fullRange = new vscode.Range(
                     document.positionAt(0),
                     document.positionAt(document.getText().length)
@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
                     editBuilder.replace(fullRange, formatted);
                 });
             } else {
-                console.error("Error: Format result is not a string.");
+                console.error("Erro: format result is not a string.");
             }
         }
     });
@@ -34,10 +34,10 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {}
 
 // Função principal para formatação de código
-function formatCode(text: string, languageId: string): string {
-    console.log('Formatting text with Prettier or external tool.');
+async function formatCode(text: string, languageId: string): Promise<string> {
+    console.log('Code Refine está formatando...');
 
-    // Mapear linguagens para o parser correto
+    // mapa linguagens para o parser correto (babel foi indexado, não é mais retono de erro)
     const parserMap: { [key: string]: prettier.LiteralUnion<prettier.BuiltInParserName, string> } = {
         javascript: 'babel',
         typescript: 'typescript',
@@ -55,7 +55,7 @@ function formatCode(text: string, languageId: string): string {
     try {
         if (parser) {
             // Se a linguagem for suportada pelo Prettier
-            return prettier.format(text, {
+            return await prettier.format(text, {  // Tornando o prettier.format assíncrono com await
                 parser: parser,
                 singleQuote: true,
                 trailingComma: 'es5',
@@ -66,24 +66,24 @@ function formatCode(text: string, languageId: string): string {
         } else if (languageId === 'java') {
             return formatWithGoogleJavaFormat(text);  // formatação p/ Java com google format
         } else if (languageId === 'csv') {
-            return formatCSV(text);  // Formatação básica para CSV
+            return formatCSV(text);  // format básico p CSV
         } else {
-            return text; // Retorna o texto sem formatação se a linguagem não for suportada
+            return text; // retorna o texto sem formatação se a linguagem não for suportada
         }
     } catch (error) {
-        console.error('Error formatting with Prettier:', error);
-        return text; // Retorna o texto original em caso de falha
+        console.error('CodeRefine encontrou um erro ao tentar formatar', error);
+        return text; // voltar texto original caso falhe
     }
 }
 
-// Função para formatar Python com Black usando o ambiente virtual
+// Função para formatar Python com Black usando o venv
 function formatWithBlack(text: string): string {
     try {
-        // Substitua o caminho pelo caminho correto do Black no ambiente virtual
-        const formatted = cp.execSync('venv/bin/black -q -', { input: text }).toString();
+        // AQUI substituir pelo caminho do Black no ambiente virtual (venv)
+        const formatted = cp.execSync('/home/gorgopat/Documentos/git lorenzo/coderefiner/venv/bin/black -q -', { input: text }).toString();
         return formatted;
     } catch (error) {
-        console.error('Error formatting Python with Black:', error);
+        console.error('Houve um erro ao tentar formatar o arquivo Python', error);
         return text;
     }
 }
@@ -91,10 +91,10 @@ function formatWithBlack(text: string): string {
 // Função para formatar Java com google-java-format
 function formatWithGoogleJavaFormat(text: string): string {
     try {
-        const formatted = cp.execSync('java -jar /home/gorgopat/Documentos/git lorenzo/coderefiner/google-java-format-1.23.0-all-deps.jar', { input: text }).toString();
+        const formatted = cp.execSync('javaS -jar /home/gorgopat/Documentos/git lorenzo/coderefiner/google-java-format-1.23.0-all-deps.jar', { input: text }).toString();
         return formatted;
     } catch (error) {
-        console.error('Error formatting Java with google-java-format:', error);
+        console.error('Houve um erro ao tentar formatar o arquivo JAVA:', error);
         return text;
     }
 }
