@@ -2,7 +2,15 @@ import * as vscode from 'vscode';
 import * as prettier from 'prettier';
 import * as cp from 'child_process'; // Para rodar comandos externos
 
+
 export function activate(context: vscode.ExtensionContext) {
+    // Inicializar o Sentry
+    const Sentry = require("@sentry/node");
+
+    Sentry.init({
+      dsn: "https://dd4fc19e421a540ea60c2beb3109de09@o4508169162063872.ingest.us.sentry.io/4508170204020736",
+    });
+
     console.log('Agora, CodeRefine está ativo!');
 
     let disposable = vscode.commands.registerCommand('extension.formatCode', async () => {
@@ -80,7 +88,7 @@ async function formatCode(text: string, languageId: string): Promise<string> {
 function formatWithBlack(text: string): string {
     try {
         // AQUI substituir pelo caminho do Black no ambiente virtual (venv)
-        const formatted = cp.execSync('/home/gorgopat/Documentos/git lorenzo/coderefiner/venv/bin/black -q -', { input: text }).toString();
+        const formatted = cp.execSync('/home/gorgopat/Documentos/GitLorenzo/coderefiner/venv/bin/black -q -', { input: text }).toString();
         return formatted;
     } catch (error) {
         console.error('Houve um erro ao tentar formatar o arquivo Python', error);
@@ -92,7 +100,7 @@ function formatWithBlack(text: string): string {
 function formatWithGoogleJavaFormat(text: string): string {
     try {
         const formatted = cp.execSync(
-            'java -jar /home/miguel/Desktop/Projetos/Faculdade/coderefiner/google-java-format-1.23.0-all-deps.jar -',
+            'java -jar /home/gorgopat/Documentos/GitLorenzo/coderefiner/google-java-format-1.23.0-all-deps.jar -',
             { input: text }
         ).toString();
 

@@ -11,10 +11,11 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
+    "watch": "tsc -watch -p ./ && npm run sentry:sourcemaps",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org fatec-uv --project node ./out && sentry-cli sourcemaps upload --org fatec-uv --project node ./out"
   },
   "contributes": {
     "commands": [
@@ -38,5 +39,11 @@
     "prettier": "^3.3.3",
     "typescript": "^4.2.3",
     "vscode-test": "^1.5.0"
+  },
+  "dependencies": {
+    "@sentry/cli": "^2.38.0",
+    "@sentry/node": "^8.35.0",
+    "@sentry/profiling-node": "^8.35.0",
+    "@sentry/tracing": "^7.114.0"
   }
 }

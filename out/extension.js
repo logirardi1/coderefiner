@@ -88,7 +88,7 @@ function formatCode(text, languageId) {
 function formatWithBlack(text) {
     try {
         // AQUI substituir pelo caminho do Black no ambiente virtual (venv)
-        const formatted = cp.execSync('/home/gorgopat/Documentos/git lorenzo/coderefiner/venv/bin/black -q -', { input: text }).toString();
+        const formatted = cp.execSync('/home/gorgopat/Documentos/GitLorenzo/coderefiner/venv/bin/black -q -', { input: text }).toString();
         return formatted;
     }
     catch (error) {
@@ -99,7 +99,7 @@ function formatWithBlack(text) {
 // Função para formatar Java com google-java-format
 function formatWithGoogleJavaFormat(text) {
     try {
-        const formatted = cp.execSync('java -jar /home/miguel/Desktop/Projetos/Faculdade/coderefiner/google-java-format-1.23.0-all-deps.jar -', { input: text }).toString();
+        const formatted = cp.execSync('java -jar /home/gorgopat/Documentos/GitLorenzo/coderefiner/google-java-format-1.23.0-all-deps.jar -', { input: text }).toString();
         return formatted;
     }
     catch (error) {
