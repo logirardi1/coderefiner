@@ -13,6 +13,11 @@ exports.deactivate = exports.activate = void 0;
 const vscode = require("vscode");
 const prettier = require("prettier");
 const cp = require("child_process"); // Para rodar comandos externos
+// Inicializar o Sentry
+const Sentry = require("@sentry/node");
+Sentry.init({
+    dsn: "https://dd4fc19e421a540ea60c2beb3109de09@o4508169162063872.ingest.us.sentry.io/4508170204020736",
+});
 function activate(context) {
     console.log('Agora, CodeRefine está ativo!');
     let disposable = vscode.commands.registerCommand('extension.formatCode', () => __awaiter(this, void 0, void 0, function* () {

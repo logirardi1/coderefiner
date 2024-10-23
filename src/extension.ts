@@ -2,14 +2,14 @@ import * as vscode from 'vscode';
 import * as prettier from 'prettier';
 import * as cp from 'child_process'; // Para rodar comandos externos
 
+// Inicializar o Sentry
+const Sentry = require("@sentry/node");
+
+Sentry.init({
+  dsn: "https://dd4fc19e421a540ea60c2beb3109de09@o4508169162063872.ingest.us.sentry.io/4508170204020736",
+});
 
 export function activate(context: vscode.ExtensionContext) {
-    // Inicializar o Sentry
-    const Sentry = require("@sentry/node");
-
-    Sentry.init({
-      dsn: "https://dd4fc19e421a540ea60c2beb3109de09@o4508169162063872.ingest.us.sentry.io/4508170204020736",
-    });
 
     console.log('Agora, CodeRefine está ativo!');
 
