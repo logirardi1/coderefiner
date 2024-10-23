@@ -17,14 +17,21 @@
     "test": "node ./out/test/runTest.js",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org fatec-uv --project node ./out && sentry-cli sourcemaps upload --org fatec-uv --project node ./out"
   },
-  "contributes": {
+"contributes": {
     "commands": [
       {
         "command": "extension.formatCode",
         "title": "Format Code"
       }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.formatCode",
+        "key": "ctrl+shift+j",
+        "when": "editorTextFocus"
+      }
     ]
-  },
+},
   "devDependencies": {
     "@prettier/plugin-php": "^0.22.2",
     "@prettier/plugin-xml": "^3.4.1",
