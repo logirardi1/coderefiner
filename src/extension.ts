@@ -50,12 +50,12 @@ async function formatCode(text: string, languageId: string): Promise<string> {
         javascript: 'babel', // certo
         typescript: 'typescript', // certo
         css: 'css', // certo
-        scss: 'scss',
+        scss: 'scss', //certo
         html: 'html', // certo
-        json: 'json',
-        markdown: 'markdown',
-        php: 'php',        // index do @prettier/plugin-php
-        xml: 'xml'         // index do @prettier/plugin-xml
+        json: 'json', // maio ou menos
+        markdown: 'markdown', // unstable
+        php: 'php',        // unstable / index do @prettier/plugin-php
+        xml: 'xml'         // unstable / index do @prettier/plugin-xml
     };
 
     const parser = parserMap[languageId];
