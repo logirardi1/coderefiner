@@ -88,7 +88,8 @@ async function formatCode(text: string, languageId: string): Promise<string> {
 function formatWithBlack(text: string): string {
     try {
         // AQUI substituir pelo caminho do Black no ambiente virtual (venv)
-        const formatted = cp.execSync('/home/gorgopat/Documentos/GitLorenzo/coderefiner/venv/bin/black -q -', { input: text }).toString();
+        const formatted = cp.execSync('/home/gorgopat/Documentos/GitLorenzo/coderefiner/venv/bin/black -q -', 
+        { input: text }).toString();
         return formatted;
     } catch (error) {
         console.error('Houve um erro ao tentar formatar o arquivo Python', error);

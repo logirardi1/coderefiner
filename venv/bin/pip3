@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/home/gorgopat/Documentos/GitLorenzo/coderefiner/venv/bin/python3" "$0" "$@"
-' '''
+#!/home/gorgopat/Documentos/GitLorenzo/coderefiner/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
